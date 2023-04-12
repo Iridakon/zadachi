@@ -104,6 +104,7 @@ int main() {
 
     }
     stkPrint(stk);
+    printf("hellow");
     return 0;
 
 }
