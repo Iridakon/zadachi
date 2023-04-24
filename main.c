@@ -20,6 +20,7 @@ void push(struct stack *stk, char f) {
     stk->top++;
 }
 
+
 //--------Удаление элемента из стека----------—
 char pop(struct stack *stk) {
     char elem;
@@ -31,6 +32,10 @@ char pop(struct stack *stk) {
 //--------Определение, пуст ли стек----------—
 int is_empty(struct stack *stk) {
     if(stk->top == 0) return 1;
+    else return 0;
+}
+int is_op(char a) {
+    if((a == '+')||(a == '-')||(a == '*')||(a == '/')||(a == '=')||(a == ')')) return 1;
     else return 0;
 }
 
@@ -71,12 +76,22 @@ int main() {
 
     char s[1001]={ };
 
-    scanf("%s",&s);
+    //scanf("%s",&s);
+    gets(s);
     int l=strlen(s);
     for(int i=0; i<l;i++){
         switch (s[i]){
             case '(':{
-                push(stk,s[i]);
+                if (s[i+1]=='-'){
+                    int l=0;
+                     do{
+                        printf("%c", s[i + l]);
+                        l++;
+                    } while (s[i+l-1]!=')');
+                    printf(" ");
+                    i=i+l-1;
+                }
+                else push(stk,s[i]);
                 break;
             }
             case ')':{
@@ -98,13 +113,13 @@ int main() {
             }
             default:{
                 printf("%c",s[i]);
+                if (is_op(s[i+1])) printf(" ");
                 break;
             }
         }
 
     }
     stkPrint(stk);
-    printf("hellow");
     return 0;
 
 }
